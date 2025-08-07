@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import AddCardButton from "../components/AddCardButton";
 import SidebarButton from "../components/SidebarButton";
-
-import Clock from "lucide-react/dist/esm/icons/clock.js";
-import Trash2 from "lucide-react/dist/esm/icons/trash-2.js";
-import House from "lucide-react/dist/esm/icons/home.js";
-
+import { Clock, Trash2, House } from "lucide-react";
 import SearchInput from "../components/SearchInput";
 import CreateCardBar from "../components/CreateCardBar";
 
