@@ -1,7 +1,4 @@
 {
-  "engines": {
-    "node": "18.x"
-  },
   "name": "organize",
   "private": true,
   "version": "0.0.0",
