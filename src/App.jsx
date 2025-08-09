@@ -1,18 +1,21 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Trash from "./pages/Trash";
-import Recents from "./pages/Recents";
-import Home from "./pages/Home";
+import Trash from "./routes/Trash";
+import Recents from "./routes/Recents";
+import Home from "./routes/Home";
+import { AppProvider } from "./context/AppProvider";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/trash" element={<Trash />} />
-        <Route path="/recents" element={<Recents />} />
-      </Routes>
-    </Router>
+    <AppProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/trash" element={<Trash />} />
+          <Route path="/recents" element={<Recents />} />
+        </Routes>
+      </Router>
+    </AppProvider>
   );
 }
 
