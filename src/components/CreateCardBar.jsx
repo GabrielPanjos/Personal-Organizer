@@ -6,7 +6,10 @@ import { useContext, useState } from "react";
 import { CardContext } from "../context/CardContext";
 
 function CreateCardBar() {
-  const [card, setCard] = useState({ title: "", description: "" });
+  const [card, setCard] = useState({
+    title: "",
+    description: "",
+  });
   const { createCard } = useContext(CardContext);
 
   return (
@@ -14,7 +17,7 @@ function CreateCardBar() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createCard();
+          createCard(card.title, card.description);
           setCard({ title: "", description: "" });
         }}
         className="flex flex-col items-center w-[350px]"

@@ -9,8 +9,11 @@ export const CardProvider = ({ children }) => {
   );
 
   function createCard(title, description) {
-    const newCard = { title, description };
+    if (title === "") {
+      return;
+    }
 
+    const newCard = { title, description, id: Date.now() };
     setCards([...cards, newCard]);
   }
 
