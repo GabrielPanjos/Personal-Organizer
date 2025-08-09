@@ -8,18 +8,18 @@ export const CardProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("cards")) || []
   );
 
-  function criarCard(title, description) {
+  function createCard(title, description) {
     const newCard = { title, description };
 
     setCards([...cards, newCard]);
   }
 
   useEffect(() => {
-    localStorage.setItem("card", JSON.stringify(cards));
+    localStorage.setItem("cards", JSON.stringify(cards));
   }, [cards]);
 
   return (
-    <CardContext.Provider value={{ cards, criarCard }}>
+    <CardContext.Provider value={{ cards, createCard }}>
       {children}
     </CardContext.Provider>
   );

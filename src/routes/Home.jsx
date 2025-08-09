@@ -20,12 +20,16 @@ function Home() {
       <Sidebar>
         <div className="flex flex-col items-center w-full bg-[#FFFFFF] dark:bg-[#1E1E1E] border-b-2 border-[#DDE3E8] dark:border-[#2E2E2E] ">
           <SearchInput />
-          <SidebarButton Icon={Clock}>Recentes</SidebarButton>
+          <SidebarButton route="/recents" Icon={Clock}>
+            Recentes
+          </SidebarButton>
         </div>
         <SidebarButton route="/" Icon={House}>
           Inicio
         </SidebarButton>
-        <SidebarButton Icon={Trash2}>Lixeira</SidebarButton>
+        <SidebarButton route="/trash" Icon={Trash2}>
+          Lixeira
+        </SidebarButton>
       </Sidebar>
       <div className="flex  gap-12">
         <AddCardButton viewCreateCardBarOnClick={viewCreateCardBarOnClick} />
