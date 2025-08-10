@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Sidebar from "../components/Sidebar";
 import AddCardButton from "../components/AddCardButton";
 import SidebarButton from "../components/SidebarButton";
@@ -7,17 +7,13 @@ import SearchInput from "../components/SearchInput";
 import CreateCardBar from "../components/CreateCardBar";
 import { CardContext } from "../context/CardContext";
 import Card from "../components/Card";
+import { ModalDialogContext } from "../context/ModalDialogContext";
+import ModalDialog from "../components/ModalDialog";
 
 function Home() {
   const { cards } = useContext(CardContext);
-
-  const [viewCreateCardBar, setViewCreateCardBar] = useState(false);
-
-  function viewCreateCardBarOnClick() {
-    const newViewCreateCardBar = !viewCreateCardBar;
-
-    setViewCreateCardBar(newViewCreateCardBar);
-  }
+  const { viewCreateCardBar, viewCreateCardBarOnClick } =
+    useContext(ModalDialogContext);
 
   return (
     <div className="flex gap-12 h-screen w-screen bg-[#F9FAFB] dark:bg-[#121212] text-[#2D3436] dark:text-[#ECEFF1] ">
@@ -38,12 +34,11 @@ function Home() {
           Lixeira
         </SidebarButton>
       </Sidebar>
-      <div className="flex flex-col">
-        <div className="flex gap-12">
+      <div className="flex flex-col h-full">
+        <div className="flex h-[200px]">
           <AddCardButton viewCreateCardBarOnClick={viewCreateCardBarOnClick} />
-          {viewCreateCardBar && <CreateCardBar />}
         </div>
-        <div>
+        <div className="h-full w-full">
           {cards && (
             <ul>
               {cards.map((card) => (
@@ -57,6 +52,12 @@ function Home() {
           )}
         </div>
       </div>
+      {viewCreateCardBar && (
+        <div className="flex justify-center items-center h-full w-full absolute">
+          <ModalDialog />
+          <CreateCardBar />
+        </div>
+      )}
     </div>
   );
 }
