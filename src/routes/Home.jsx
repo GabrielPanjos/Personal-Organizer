@@ -43,6 +43,7 @@ function Home() {
             <ul>
               {cards.map((card) => (
                 <Card
+                  cardId={card.id}
                   key={card.id}
                   title={card.title}
                   description={card.description}

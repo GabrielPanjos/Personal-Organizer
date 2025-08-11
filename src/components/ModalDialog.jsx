@@ -7,7 +7,7 @@ function ModalDialog() {
   return (
     <div
       onClick={() => viewCreateCardBarOnClick()}
-      className="bg-[#00000050] h-full w-full absolute"
+      className="bg-[#00000080] h-full w-full absolute"
     ></div>
   );
 }
