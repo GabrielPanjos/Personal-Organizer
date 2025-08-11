@@ -1,14 +1,27 @@
 import { Ellipsis } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import MoreSettingsBar from "./MoreSettingsBar";
+import SettingsButton from "./SettingsButton";
+import { Trash, Pencil } from "lucide-react";
+import { CardContext } from "../context/CardContext";
 
-function Card({ title, description }) {
+function Card({ title, description, cardId }) {
   const [more, setMore] = useState(false);
-  const [activeCardId, setActiveCardId] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState(null);
+  const { deleteCard } = useContext(CardContext);
+
+  function handleShowMenu(e) {
+    // Pega a posição do clique
+    setMenuPosition({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  }
 
   function toggleMoreSettingsBar() {
-    const newActiveCardId = !activeCardId;
-    setActiveCardId(newActiveCardId);
+    const newActiveCardId = !isMenuOpen;
+    setIsMenuOpen(newActiveCardId);
   }
 
   return (
@@ -26,7 +39,12 @@ function Card({ title, description }) {
             </div>
             <div>
               {more && (
-                <button onClick={toggleMoreSettingsBar}>
+                <button
+                  onClick={(e) => {
+                    toggleMoreSettingsBar();
+                    handleShowMenu(e);
+                  }}
+                >
                   <Ellipsis className="size-5" />
                 </button>
               )}
@@ -35,7 +53,21 @@ function Card({ title, description }) {
           <div className="w-full h-[60%]"></div>
         </div>
       </li>
-      {activeCardId && <MoreSettingsBar />}
+      {isMenuOpen && (
+        <MoreSettingsBar
+          style={{
+            position: "fixed",
+            top: `${menuPosition.y}px`,
+            left: `${menuPosition.x}px`,
+            zIndex: 9999,
+          }}
+        >
+          <SettingsButton Icon={Pencil}>Editar</SettingsButton>
+          <SettingsButton onClick={() => deleteCard(cardId)} Icon={Trash}>
+            Apagar
+          </SettingsButton>
+        </MoreSettingsBar>
+      )}
     </>
   );
 }
