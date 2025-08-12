@@ -1,18 +1,23 @@
+import { useContext, useState, useEffect } from "react";
+import { CardContext } from "../context/CardContext";
+import { ModalDialogContext } from "../context/ModalDialogContext";
 import SubmitButton from "./SubmitButton";
 import Input from "./Input";
 import TextArea from "./TextArea";
-import { ModalDialogContext } from "../context/ModalDialogContext";
-import { useContext, useState } from "react";
-import { CardContext } from "../context/CardContext";
 
-function CreateCardBar() {
+function EditCardBar({ title, description, cardId }) {
   const [card, setCard] = useState({
-    title: "",
-    description: "",
+    title: title,
+    description: description,
   });
 
-  const { viewCreateCardBarOnClick } = useContext(ModalDialogContext);
-  const { createCard } = useContext(CardContext);
+  const { viewEditCardBarOnClick } = useContext(ModalDialogContext);
+  const { editCard } = useContext(CardContext);
+
+  // Sempre que title ou description mudarem, atualiza o estado
+  useEffect(() => {
+    setCard({ title, description });
+  }, [title, description]);
 
   return (
     <div className="flex justify-center absolute items-center">
@@ -20,9 +25,9 @@ function CreateCardBar() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            createCard(card.title, card.description);
+            editCard(card.title, card.description, cardId);
             setCard({ title: "", description: "" });
-            viewCreateCardBarOnClick();
+            viewEditCardBarOnClick();
           }}
           className="flex flex-col items-center w-[350px]"
         >
@@ -67,4 +72,4 @@ function CreateCardBar() {
   );
 }
 
-export default CreateCardBar;
+export default EditCardBar;

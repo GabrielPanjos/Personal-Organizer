@@ -13,6 +13,24 @@ export const CardProvider = ({ children }) => {
     setCards(newCards);
   }
 
+  function editCard(title, description, cardId) {
+    console.log('foi')
+    if (title === "") return;
+
+    const newCards = cards.map((card) => {
+      if (card.id === cardId) {
+        return {
+          ...card,
+          title,
+          description,
+        };
+      }
+      return card;
+    });
+
+    setCards(newCards);
+  }
+
   function createCard(title, description) {
     if (title === "") {
       return;
@@ -27,7 +45,7 @@ export const CardProvider = ({ children }) => {
   }, [cards]);
 
   return (
-    <CardContext.Provider value={{ cards, createCard, deleteCard }}>
+    <CardContext.Provider value={{ cards, createCard, deleteCard, editCard }}>
       {children}
     </CardContext.Provider>
   );

@@ -4,12 +4,16 @@ import MoreSettingsBar from "./MoreSettingsBar";
 import SettingsButton from "./SettingsButton";
 import { Trash, Pencil } from "lucide-react";
 import { CardContext } from "../context/CardContext";
+import { ModalDialogContext } from "../context/ModalDialogContext";
+import EditCardBar from "./EditCardBar";
 
 function Card({ title, description, cardId }) {
   const [more, setMore] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState(null);
   const { deleteCard } = useContext(CardContext);
+  const { viewEditCardBar, viewEditCardBarOnClick } =
+    useContext(ModalDialogContext);
 
   function handleShowMenu(e) {
     // Pega a posição do clique
@@ -53,6 +57,7 @@ function Card({ title, description, cardId }) {
           <div className="w-full h-[60%]"></div>
         </div>
       </li>
+      {viewEditCardBar && <EditCardBar title={title} description={description} cardId={cardId}></EditCardBar>}
       {isMenuOpen && (
         <MoreSettingsBar
           style={{
@@ -62,7 +67,12 @@ function Card({ title, description, cardId }) {
             zIndex: 9999,
           }}
         >
-          <SettingsButton Icon={Pencil}>Editar</SettingsButton>
+          <SettingsButton
+            onClick={() => viewEditCardBarOnClick(title, description, cardId)}
+            Icon={Pencil}
+          >
+            Editar
+          </SettingsButton>
           <SettingsButton onClick={() => deleteCard(cardId)} Icon={Trash}>
             Apagar
           </SettingsButton>
