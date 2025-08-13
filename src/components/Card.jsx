@@ -76,6 +76,7 @@ function Card({ title, description, cardId }) {
             left: `${menuPosition.x}px`,
             zIndex: 9999,
           }}
+          onClick={() => setIsMenuOpen(false)}
         >
           <SettingsButton
             onClick={() => viewEditCardBarOnClick(title, description, cardId)}
