@@ -34,7 +34,7 @@ function Card({ title, description, cardId }) {
       <li
         onMouseEnter={() => setMore(true)}
         onMouseLeave={() => setMore(false)}
-        className="flex items-center absolute text-[14px] w-[300px] h-[200px] mt-12 rounded bg-[#FFFFFF] dark:bg-[#1E1E1E] border-2 border-[#DDE3E8] dark:border-[#2E2E2E]"
+        className="flex items-center text-[14px] w-[300px] h-[200px] mt-12 rounded bg-[#FFFFFF] dark:bg-[#1E1E1E] border-2 border-[#DDE3E8] dark:border-[#2E2E2E]"
       >
         <div className="w-full h-full">
           <div className="flex flex-row justify-between w-full h-[40%] pt-4 pl-4 pr-4">

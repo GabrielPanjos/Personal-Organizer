@@ -7,7 +7,11 @@ export const ModalDialogProvider = ({ children }) => {
   const [viewEditCardBar, setViewEditCardBar] = useState(false);
   const [viewConfirmDialog, setViewConfirmDialog] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState(false);
-  
+
+  function confirmDialogProps(...props) {
+    return props;
+  }
+
   function viewConfirmDialogOnClick() {
     const newViewConfirmDialog = !viewConfirmDialog;
 
@@ -40,6 +44,7 @@ export const ModalDialogProvider = ({ children }) => {
         setConfirmDialog,
         confirmDialog,
         viewConfirmDialogOnClick,
+        confirmDialogProps,
       }}
     >
       {children}

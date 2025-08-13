@@ -4,6 +4,7 @@ import TextArea from "./TextArea";
 import { ModalDialogContext } from "../context/ModalDialogContext";
 import { useContext, useState } from "react";
 import { CardContext } from "../context/CardContext";
+import ConfirmDialog from "./ConfirmDialog";
 
 function CreateCardBar() {
   const [card, setCard] = useState({
@@ -11,7 +12,8 @@ function CreateCardBar() {
     description: "",
   });
 
-  const { setViewCreateCardBar } = useContext(ModalDialogContext);
+  const { setViewCreateCardBar, viewConfirmDialog, setViewConfirmDialog } =
+    useContext(ModalDialogContext);
   const { createCard } = useContext(CardContext);
 
   return (
@@ -20,9 +22,7 @@ function CreateCardBar() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            createCard(card.title, card.description);
-            setCard({ title: "", description: "" });
-            setViewCreateCardBar(false);
+            setViewConfirmDialog(true);
           }}
           className="flex flex-col items-center w-[350px]"
         >
@@ -63,6 +63,20 @@ function CreateCardBar() {
           </div>
         </form>
       </div>
+      {viewConfirmDialog && (
+        <div className="flex justify-center absolute items-center">
+          <ConfirmDialog
+            onConfirm={() => {
+              createCard(card.title, card.description);
+              setCard({ title: "", description: "" });
+              setViewCreateCardBar(false);
+              setViewConfirmDialog(false);
+            }}
+            onCancel={() => setViewConfirmDialog(false)}
+            message="Tem certeza que deseja criar essa categoria?"
+          />
+        </div>
+      )}
     </div>
   );
 }

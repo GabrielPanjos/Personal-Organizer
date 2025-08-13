@@ -12,7 +12,7 @@ function ModalDialog() {
           setViewEditCardBar(false),
           setViewConfirmDialog(false);
       }}
-      className="bg-[#00000080] h-full w-full absolute"
+      className="bg-[#00000080] h-full w-full fixed"
     ></div>
   );
 }
