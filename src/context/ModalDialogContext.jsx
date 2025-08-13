@@ -25,6 +25,8 @@ export const ModalDialogProvider = ({ children }) => {
         viewCreateCardBarOnClick,
         viewEditCardBar,
         viewEditCardBarOnClick,
+        setViewCreateCardBar,
+        setViewEditCardBar,
       }}
     >
       {children}

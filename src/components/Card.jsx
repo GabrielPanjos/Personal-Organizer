@@ -6,6 +6,7 @@ import { Trash, Pencil } from "lucide-react";
 import { CardContext } from "../context/CardContext";
 import { ModalDialogContext } from "../context/ModalDialogContext";
 import EditCardBar from "./EditCardBar";
+import ModalDialog from "./ModalDialog";
 
 function Card({ title, description, cardId }) {
   const [more, setMore] = useState(false);
@@ -33,7 +34,7 @@ function Card({ title, description, cardId }) {
       <li
         onMouseEnter={() => setMore(true)}
         onMouseLeave={() => setMore(false)}
-        className="flex items-center text-[14px] w-[300px] h-[200px] mt-12 rounded bg-[#FFFFFF] dark:bg-[#1E1E1E] border-2 border-[#DDE3E8] dark:border-[#2E2E2E]"
+        className="flex items-center absolute text-[14px] w-[300px] h-[200px] mt-12 rounded bg-[#FFFFFF] dark:bg-[#1E1E1E] border-2 border-[#DDE3E8] dark:border-[#2E2E2E]"
       >
         <div className="w-full h-full">
           <div className="flex flex-row justify-between w-full h-[40%] pt-4 pl-4 pr-4">
@@ -57,7 +58,16 @@ function Card({ title, description, cardId }) {
           <div className="w-full h-[60%]"></div>
         </div>
       </li>
-      {viewEditCardBar && <EditCardBar title={title} description={description} cardId={cardId}></EditCardBar>}
+      {viewEditCardBar && (
+        <div className="flex justify-center items-center h-full w-full inset-0 fixed">
+          <ModalDialog />
+          <EditCardBar
+            title={title}
+            description={description}
+            cardId={cardId}
+          ></EditCardBar>
+        </div>
+      )}
       {isMenuOpen && (
         <MoreSettingsBar
           style={{
