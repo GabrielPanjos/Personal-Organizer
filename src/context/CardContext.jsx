@@ -1,43 +1,50 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ModalDialogContext } from "./ModalDialogContext";
 
 export const CardContext = createContext();
 
 export const CardProvider = ({ children }) => {
+  const { confirmDialog } = useContext(ModalDialogContext);
+
   // variável que armazena os cards (categorias)
   const [cards, setCards] = useState(
     JSON.parse(localStorage.getItem("cards")) || []
   );
 
   function deleteCard(cardId) {
-    const newCards = cards.filter((card) => card.id !== cardId);
-    setCards(newCards);
+    if (confirmDialog) {
+      const newCards = cards.filter((card) => card.id !== cardId);
+      setCards(newCards);
+    }
   }
 
   function editCard(title, description, cardId) {
-    console.log('foi')
     if (title === "") return;
+    if (confirmDialog) {
+      const newCards = cards.map((card) => {
+        if (card.id === cardId) {
+          return {
+            ...card,
+            title,
+            description,
+          };
+        }
+        return card;
+      });
+      setCards(newCards);
+    }
 
-    const newCards = cards.map((card) => {
-      if (card.id === cardId) {
-        return {
-          ...card,
-          title,
-          description,
-        };
-      }
-      return card;
-    });
-
-    setCards(newCards);
+    return;
   }
 
   function createCard(title, description) {
     if (title === "") {
       return;
     }
-
-    const newCard = { title, description, id: Date.now() };
-    setCards([...cards, newCard]);
+    if (confirmDialog) {
+      const newCard = { title, description, id: Date.now() };
+      setCards([...cards, newCard]);
+    }
   }
 
   useEffect(() => {

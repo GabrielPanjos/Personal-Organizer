@@ -9,10 +9,11 @@ import { CardContext } from "../context/CardContext";
 import Card from "../components/Card";
 import { ModalDialogContext } from "../context/ModalDialogContext";
 import ModalDialog from "../components/ModalDialog";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 function Home() {
   const { cards } = useContext(CardContext);
-  const { viewCreateCardBar, viewCreateCardBarOnClick } =
+  const { viewCreateCardBar, viewCreateCardBarOnClick, viewConfirmDialog } =
     useContext(ModalDialogContext);
 
   return (
@@ -57,6 +58,12 @@ function Home() {
         <div className="flex justify-center items-center h-full w-full absolute">
           <ModalDialog />
           <CreateCardBar />
+        </div>
+      )}
+      {viewConfirmDialog && (
+        <div className="flex justify-center items-center h-full w-full absolute">
+          <ModalDialog />
+          <ConfirmDialog />
         </div>
       )}
     </div>

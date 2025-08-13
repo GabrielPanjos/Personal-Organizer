@@ -1,6 +1,5 @@
 import { CardProvider } from "./CardContext";
 import { ModalDialogProvider } from "./ModalDialogContext";
-import { MoreSettingsContext } from "./MoreSettingsContext";
 
 export function AppProvider({ children }) {
   return (

@@ -11,7 +11,7 @@ function CreateCardBar() {
     description: "",
   });
 
-  const { viewCreateCardBarOnClick } = useContext(ModalDialogContext);
+  const { setViewCreateCardBar } = useContext(ModalDialogContext);
   const { createCard } = useContext(CardContext);
 
   return (
@@ -22,7 +22,7 @@ function CreateCardBar() {
             e.preventDefault();
             createCard(card.title, card.description);
             setCard({ title: "", description: "" });
-            viewCreateCardBarOnClick();
+            setViewCreateCardBar(false);
           }}
           className="flex flex-col items-center w-[350px]"
         >

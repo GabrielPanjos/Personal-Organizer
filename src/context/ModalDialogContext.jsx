@@ -5,6 +5,14 @@ export const ModalDialogContext = createContext();
 export const ModalDialogProvider = ({ children }) => {
   const [viewCreateCardBar, setViewCreateCardBar] = useState(false);
   const [viewEditCardBar, setViewEditCardBar] = useState(false);
+  const [viewConfirmDialog, setViewConfirmDialog] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState(false);
+
+  function viewConfirmDialogOnClick() {
+    const newViewConfirmDialog = !viewConfirmDialog;
+
+    setViewConfirmDialog(newViewConfirmDialog);
+  }
 
   function viewCreateCardBarOnClick() {
     const newViewCreateCardBar = !viewCreateCardBar;
@@ -27,6 +35,11 @@ export const ModalDialogProvider = ({ children }) => {
         viewEditCardBarOnClick,
         setViewCreateCardBar,
         setViewEditCardBar,
+        viewConfirmDialog,
+        setViewConfirmDialog,
+        setConfirmDialog,
+        confirmDialog,
+        viewConfirmDialogOnClick,
       }}
     >
       {children}
