@@ -7,7 +7,7 @@ export const ModalDialogProvider = ({ children }) => {
   const [viewEditCardBar, setViewEditCardBar] = useState(false);
   const [viewConfirmDialog, setViewConfirmDialog] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState(false);
-
+  
   function viewConfirmDialogOnClick() {
     const newViewConfirmDialog = !viewConfirmDialog;
 

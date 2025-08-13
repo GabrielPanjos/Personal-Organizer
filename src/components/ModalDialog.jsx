@@ -2,7 +2,7 @@ import { ModalDialogContext } from "../context/ModalDialogContext";
 import { useContext } from "react";
 
 function ModalDialog() {
-  const { setViewCreateCardBar, setViewEditCardBar, viewConfirmDialogOnClick } =
+  const { setViewCreateCardBar, setViewEditCardBar, setViewConfirmDialog } =
     useContext(ModalDialogContext);
 
   return (
@@ -10,7 +10,7 @@ function ModalDialog() {
       onClick={() => {
         setViewCreateCardBar(false),
           setViewEditCardBar(false),
-          viewConfirmDialogOnClick(false);
+          setViewConfirmDialog(false);
       }}
       className="bg-[#00000080] h-full w-full absolute"
     ></div>
