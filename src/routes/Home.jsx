@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import AddCardButton from "../components/AddCardButton";
 import SidebarButton from "../components/SidebarButton";
@@ -26,6 +26,10 @@ function Home() {
       cards.filter((card) => card.title.toLowerCase().includes(search))
     );
   }
+
+  useEffect(() => {
+    setCardsFiltered(cards);
+  }, [cards]);
 
   return (
     <div className="flex gap-12 h-screen w-screen bg-[#F9FAFB] dark:bg-[#121212] text-[#2D3436] dark:text-[#ECEFF1] ">
