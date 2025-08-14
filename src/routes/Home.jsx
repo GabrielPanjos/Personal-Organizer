@@ -46,6 +46,7 @@ function Home() {
                 .filter((card) => !card.isDeleted)
                 .map((card) => (
                   <Card
+                    isDeleted={card.isDeleted}
                     cardId={card.id}
                     key={card.id}
                     title={card.title}

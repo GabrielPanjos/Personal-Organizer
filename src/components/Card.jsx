@@ -1,4 +1,4 @@
-import { Ellipsis } from "lucide-react";
+import { ArchiveRestore, Ellipsis } from "lucide-react";
 import { useState, useContext } from "react";
 import MoreSettingsBar from "./MoreSettingsBar";
 import SettingsButton from "./SettingsButton";
@@ -9,7 +9,7 @@ import EditCardBar from "./EditCardBar";
 import ModalDialog from "./ModalDialog";
 import ConfirmDialog from "./ConfirmDialog";
 
-function Card({ title, description, cardId }) {
+function Card({ title, description, cardId, isDeleted }) {
   const [more, setMore] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState(null);
@@ -85,22 +85,44 @@ function Card({ title, description, cardId }) {
           }}
           onClick={() => setIsMenuOpen(false)}
         >
-          <SettingsButton
-            onClick={() => {
-              viewEditCardBarOnClick(title, description, cardId);
-            }}
-            Icon={Pencil}
-          >
-            Editar
-          </SettingsButton>
-          <SettingsButton
-            onClick={() => {
-              setViewConfirmDialog(true), setDeleteClicked(true);
-            }}
-            Icon={Trash}
-          >
-            Apagar
-          </SettingsButton>
+          {isDeleted ? (
+            <SettingsButton
+              onClick={() => {
+                viewEditCardBarOnClick(title, description, cardId);
+              }}
+              Icon={ArchiveRestore}
+            >
+              Recuperar
+            </SettingsButton>
+          ) : (
+            <SettingsButton
+              onClick={() => {
+                viewEditCardBarOnClick(title, description, cardId);
+              }}
+              Icon={Pencil}
+            >
+              Editar
+            </SettingsButton>
+          )}
+          {isDeleted ? (
+            <SettingsButton
+              onClick={() => {
+                setViewConfirmDialog(true), setDeleteClicked(true);
+              }}
+              Icon={Trash}
+            >
+              Excluir da Lixeira
+            </SettingsButton>
+          ) : (
+            <SettingsButton
+              onClick={() => {
+                setViewConfirmDialog(true), setDeleteClicked(true);
+              }}
+              Icon={Trash}
+            >
+              Excluir
+            </SettingsButton>
+          )}
         </MoreSettingsBar>
       )}
       {viewConfirmDialog && deleteClicked && (
