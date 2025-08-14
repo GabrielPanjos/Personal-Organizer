@@ -8,6 +8,14 @@ export const CardProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("cards")) || []
   );
 
+  function restoreCard(cardId) {
+    setCards(
+      cards.map((card) =>
+        card.id === cardId ? { ...card, isDeleted: false } : card
+      )
+    );
+  }
+
   function deleteCard(cardId) {
     const cardToDelete = cards.find((card) => card.id === cardId);
 
@@ -56,7 +64,9 @@ export const CardProvider = ({ children }) => {
   }, [cards]);
 
   return (
-    <CardContext.Provider value={{ cards, createCard, deleteCard, editCard }}>
+    <CardContext.Provider
+      value={{ cards, createCard, deleteCard, editCard, restoreCard }}
+    >
       {children}
     </CardContext.Provider>
   );

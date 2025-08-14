@@ -13,7 +13,7 @@ function Card({ title, description, cardId, isDeleted }) {
   const [more, setMore] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState(null);
-  const { deleteCard } = useContext(CardContext);
+  const { deleteCard, restoreCard } = useContext(CardContext);
   const {
     viewEditCardBar,
     viewEditCardBarOnClick,
@@ -35,6 +35,7 @@ function Card({ title, description, cardId, isDeleted }) {
   }
 
   const [deleteClicked, setDeleteClicked] = useState(false);
+  const [restoreClicked, setRestoreClicked] = useState(false);
 
   return (
     <>
@@ -88,7 +89,8 @@ function Card({ title, description, cardId, isDeleted }) {
           {isDeleted ? (
             <SettingsButton
               onClick={() => {
-                viewEditCardBarOnClick(title, description, cardId);
+                setViewConfirmDialog(true);
+                setRestoreClicked(true);
               }}
               Icon={ArchiveRestore}
             >
@@ -124,6 +126,19 @@ function Card({ title, description, cardId, isDeleted }) {
             </SettingsButton>
           )}
         </MoreSettingsBar>
+      )}
+      {viewConfirmDialog && restoreClicked && (
+        <div className="flex justify-center inset-0 fixed items-center">
+          <ConfirmDialog
+            onConfirm={() => {
+              restoreCard(cardId);
+              setRestoreClicked(false);
+              setViewConfirmDialog(false);
+            }}
+            onCancel={() => setViewConfirmDialog(false)}
+            message="Tem certeza que deseja apagar essa categoria?"
+          />
+        </div>
       )}
       {viewConfirmDialog && deleteClicked && (
         <div className="flex justify-center inset-0 fixed items-center">
