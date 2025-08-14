@@ -23,7 +23,7 @@ function Home() {
     }
 
     setCardsFiltered(
-      cards.filter((card) => card.title.toLowerCase().includes(search))
+      cards.filter((card) => card.title.toLowerCase().includes(search) || card.description.toLowerCase().includes(search))
     );
   }
 
