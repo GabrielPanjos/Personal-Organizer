@@ -42,14 +42,16 @@ function Home() {
         <div className="h-full w-full">
           {cards && (
             <ul>
-              {cardsFiltered.map((card) => (
-                <Card
-                  cardId={card.id}
-                  key={card.id}
-                  title={card.title}
-                  description={card.description}
-                />
-              ))}
+              {cardsFiltered
+                .filter((card) => !card.isDeleted)
+                .map((card) => (
+                  <Card
+                    cardId={card.id}
+                    key={card.id}
+                    title={card.title}
+                    description={card.description}
+                  />
+                ))}
             </ul>
           )}
         </div>

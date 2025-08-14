@@ -8,16 +8,20 @@ export const CardProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("cards")) || []
   );
 
-  const [deletedCards, setDeletedCards] = useState(
-    JSON.parse(localStorage.getItem("deletedCards")) || []
-  );
-
   function deleteCard(cardId) {
-    const newCards = cards.filter((card) => card.id !== cardId);
-    const newDeletedCard = cards.filter((card) => card.id === cardId);
+    const cardToDelete = cards.find((card) => card.id === cardId);
 
-    setDeletedCards([...deletedCards, newDeletedCard]);
-    setCards(newCards);
+    if (cardToDelete.isDeleted) {
+      // Segunda vez → remove do array
+      setCards(cards.filter((card) => card.id !== cardId));
+    } else {
+      // Primeira vez → marca como deletado
+      setCards(
+        cards.map((card) =>
+          card.id === cardId ? { ...card, isDeleted: true } : card
+        )
+      );
+    }
   }
 
   function editCard(title, description, cardId) {
@@ -43,17 +47,13 @@ export const CardProvider = ({ children }) => {
       return;
     }
 
-    const newCard = { title, description, id: Date.now() };
+    const newCard = { title, description, id: Date.now(), isDeleted: false };
     setCards([...cards, newCard]);
   }
 
   useEffect(() => {
     localStorage.setItem("cards", JSON.stringify(cards));
   }, [cards]);
-
-  useEffect(() => {
-    localStorage.setItem("deletedCards", JSON.stringify(deletedCards));
-  }, [deletedCards]);
 
   return (
     <CardContext.Provider value={{ cards, createCard, deleteCard, editCard }}>
