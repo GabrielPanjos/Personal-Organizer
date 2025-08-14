@@ -69,8 +69,8 @@ function CreateCardBar() {
             onConfirm={() => {
               createCard(card.title, card.description);
               setCard({ title: "", description: "" });
-              setViewCreateCardBar(false);
               setViewConfirmDialog(false);
+              setViewCreateCardBar(false);
             }}
             onCancel={() => setViewConfirmDialog(false)}
             message="Tem certeza que deseja criar essa categoria?"
