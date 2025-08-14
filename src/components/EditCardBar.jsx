@@ -4,6 +4,7 @@ import { ModalDialogContext } from "../context/ModalDialogContext";
 import SubmitButton from "./SubmitButton";
 import Input from "./Input";
 import TextArea from "./TextArea";
+import ConfirmDialog from "./ConfirmDialog";
 
 function EditCardBar({ title, description, cardId }) {
   const [card, setCard] = useState({
@@ -11,7 +12,8 @@ function EditCardBar({ title, description, cardId }) {
     description: description,
   });
 
-  const { viewEditCardBarOnClick } = useContext(ModalDialogContext);
+  const { viewEditCardBarOnClick, viewConfirmDialog, setViewConfirmDialog } =
+    useContext(ModalDialogContext);
   const { editCard } = useContext(CardContext);
 
   // Sempre que title ou description mudarem, atualiza o estado
@@ -25,9 +27,7 @@ function EditCardBar({ title, description, cardId }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            editCard(card.title, card.description, cardId);
-            setCard({ title: "", description: "" });
-            viewEditCardBarOnClick();
+            setViewConfirmDialog(true);
           }}
           className="flex flex-col items-center w-[350px]"
         >
@@ -68,6 +68,20 @@ function EditCardBar({ title, description, cardId }) {
           </div>
         </form>
       </div>
+      {viewConfirmDialog && (
+        <div className="flex justify-center inset-0 fixed items-center">
+          <ConfirmDialog
+            onConfirm={() => {
+              editCard(card.title, card.description, cardId);
+              setCard({ title: "", description: "" });
+              viewEditCardBarOnClick();
+              setViewConfirmDialog(false);
+            }}
+            onCancel={() => setViewConfirmDialog(false)}
+            message="Tem certeza que deseja editar essa categoria?"
+          />
+        </div>
+      )}
     </div>
   );
 }

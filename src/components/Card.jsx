@@ -7,14 +7,19 @@ import { CardContext } from "../context/CardContext";
 import { ModalDialogContext } from "../context/ModalDialogContext";
 import EditCardBar from "./EditCardBar";
 import ModalDialog from "./ModalDialog";
+import ConfirmDialog from "./ConfirmDialog";
 
 function Card({ title, description, cardId }) {
   const [more, setMore] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuPosition, setMenuPosition] = useState(null);
   const { deleteCard } = useContext(CardContext);
-  const { viewEditCardBar, viewEditCardBarOnClick } =
-    useContext(ModalDialogContext);
+  const {
+    viewEditCardBar,
+    viewEditCardBarOnClick,
+    viewConfirmDialog,
+    setViewConfirmDialog,
+  } = useContext(ModalDialogContext);
 
   function handleShowMenu(e) {
     // Pega a posição do clique
@@ -28,6 +33,8 @@ function Card({ title, description, cardId }) {
     const newActiveCardId = !isMenuOpen;
     setIsMenuOpen(newActiveCardId);
   }
+
+  const [deleteClicked, setDeleteClicked] = useState(false);
 
   return (
     <>
@@ -79,15 +86,35 @@ function Card({ title, description, cardId }) {
           onClick={() => setIsMenuOpen(false)}
         >
           <SettingsButton
-            onClick={() => viewEditCardBarOnClick(title, description, cardId)}
+            onClick={() => {
+              viewEditCardBarOnClick(title, description, cardId);
+            }}
             Icon={Pencil}
           >
             Editar
           </SettingsButton>
-          <SettingsButton onClick={() => deleteCard(cardId)} Icon={Trash}>
+          <SettingsButton
+            onClick={() => {
+              setViewConfirmDialog(true), setDeleteClicked(true);
+            }}
+            Icon={Trash}
+          >
             Apagar
           </SettingsButton>
         </MoreSettingsBar>
+      )}
+      {viewConfirmDialog && deleteClicked && (
+        <div className="flex justify-center inset-0 fixed items-center">
+          <ConfirmDialog
+            onConfirm={() => {
+              deleteCard(cardId);
+              setDeleteClicked(false);
+              setViewConfirmDialog(false);
+            }}
+            onCancel={() => setViewConfirmDialog(false)}
+            message="Tem certeza que deseja apagar essa categoria?"
+          />
+        </div>
       )}
     </>
   );
