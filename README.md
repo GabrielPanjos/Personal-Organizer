@@ -21,16 +21,10 @@ O objetivo do projeto é fornecer uma plataforma simples, prática e escalável 
 - **Persistência:** localStorage
 - **Controle de versão:** Git / GitHub
 
-
-
-
-
-
-
 # a tratar
 
-## página inicial
-
+- ## página inicial
+- 
 - armazenar categorias excluídas na lixeira
 - barra de procurar funcionar
 - organizar os cards das categorias
