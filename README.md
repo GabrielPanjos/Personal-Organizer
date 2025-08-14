@@ -27,3 +27,7 @@ O objetivo do projeto é fornecer uma plataforma simples, prática e escalável 
 
 - organizar os cards das categorias
 - melhorar tela de confirmação
+
+- ## página lixeira
+
+- botão para recuperar card apagado
