@@ -24,7 +24,7 @@ O objetivo do projeto é fornecer uma plataforma simples, prática e escalável 
 # a tratar
 
 - ## página inicial
-- 
+
 - armazenar categorias excluídas na lixeira
 - barra de procurar funcionar
 - organizar os cards das categorias
