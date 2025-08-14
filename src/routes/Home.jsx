@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import AddCardButton from "../components/AddCardButton";
 import SidebarButton from "../components/SidebarButton";
@@ -15,11 +15,23 @@ function Home() {
   const { viewCreateCardBar, viewCreateCardBarOnClick } =
     useContext(ModalDialogContext);
 
+  const [cardsFiltered, setCardsFiltered] = useState(cards);
+
+  function filterCards(search) {
+    if (search.length === 0) {
+      setCardsFiltered(cards);
+    }
+
+    setCardsFiltered(
+      cards.filter((card) => card.title.toLowerCase().includes(search))
+    );
+  }
+
   return (
     <div className="flex gap-12 h-screen w-screen bg-[#F9FAFB] dark:bg-[#121212] text-[#2D3436] dark:text-[#ECEFF1] ">
       <Sidebar>
         <div className="flex flex-col items-center w-full bg-[#FFFFFF] dark:bg-[#1E1E1E] border-b-2 border-[#DDE3E8] dark:border-[#2E2E2E] ">
-          <SearchInput />
+          <SearchInput filterCards={filterCards} />
           <SidebarButton route="/recents" Icon={Clock}>
             Recentes
           </SidebarButton>
@@ -41,7 +53,7 @@ function Home() {
         <div className="h-full w-full">
           {cards && (
             <ul>
-              {cards.map((card) => (
+              {cardsFiltered.map((card) => (
                 <Card
                   cardId={card.id}
                   key={card.id}
