@@ -22,8 +22,8 @@ function Home() {
     setCardsFiltered(
       cards.filter(
         (card) =>
-          card.title.toLowerCase().includes(search) ||
-          card.description.toLowerCase().includes(search)
+          card.title.toLowerCase().includes(search.toLowerCase()) ||
+          card.description.toLowerCase().includes(search.toLowerCase())
       )
     );
   }
