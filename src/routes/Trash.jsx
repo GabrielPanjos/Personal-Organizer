@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import { CardContext } from "../context/CardContext";
 import Card from "../components/Card";
@@ -21,6 +21,10 @@ function Trash() {
       )
     );
   }
+
+  useEffect(() => {
+    setCardsFiltered(cards);
+  }, [cards]);
 
   return (
     <div className="flex gap-12 h-screen w-screen bg-[#F9FAFB] dark:bg-[#121212] text-[#2D3436] dark:text-[#ECEFF1] ">
